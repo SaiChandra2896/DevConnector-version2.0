@@ -26,7 +26,6 @@ router.post('/', [auth, [
     check('status', 'Status is required').not().isEmpty(),
     check('skills', 'Skills are required').not().isEmpty()
 ]], async (req, res) => {
-    console.log('cj')
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -47,7 +46,7 @@ router.post('/', [auth, [
         linkedin
     } = req.body;
 
-    // //build profile object
+    //build profile object
     const profileFields = {};
 
     profileFields.user = req.user.id;
@@ -72,7 +71,6 @@ router.post('/', [auth, [
 
     try {
         let profile = await Profile.findOne({ user: req.user.id });
-        console.log('profile', profile);
         if (profile) {
             //update profile
             profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
@@ -81,7 +79,6 @@ router.post('/', [auth, [
 
         //if profile not found then create it
         profile = new Profile(profileFields);
-        console.log('profile before save', profile)
         await profile.save();
         res.json(profile);
     } catch (err) {
