@@ -26,6 +26,7 @@ router.post('/', [auth, [
     check('status', 'Status is required').not().isEmpty(),
     check('skills', 'Skills are required').not().isEmpty()
 ]], async (req, res) => {
+    console.log('cj')
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -46,8 +47,9 @@ router.post('/', [auth, [
         linkedin
     } = req.body;
 
-    //build profile object
+    // //build profile object
     const profileFields = {};
+
     profileFields.user = req.user.id;
     if (company) profileFields.company = company;
     if (website) profileFields.website = website;
@@ -59,8 +61,33 @@ router.post('/', [auth, [
         profileFields.skills = skills.split(',').map(skill => skill.trim());
     }
 
-    console.log(profileFields.skills);
-    res.send('check console');
-})
+    //build social object
+    profileFields.social = {}
+    if (youtube) profileFields.social.youtube;
+    if (twitter) profileFields.social.twitter;
+    if (facebook) profileFields.social.facebook;
+    if (linkedin) profileFields.social.linkedin;
+    if (instagram) profileFields.social.instagram;
+
+
+    try {
+        let profile = await Profile.findOne({ user: req.user.id });
+        console.log('profile', profile);
+        if (profile) {
+            //update profile
+            profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
+            return res.json(profile);
+        }
+
+        //if profile not found then create it
+        profile = new Profile(profileFields);
+        console.log('profile before save', profile)
+        await profile.save();
+        res.json(profile);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error')
+    }
+});
 
 module.exports = router;
