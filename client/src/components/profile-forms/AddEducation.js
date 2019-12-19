@@ -36,10 +36,10 @@ const AddEducation = ({ addEducation, history }) => {
                 addEducation(formData, history);
             }}>
                 <div className="form-group">
-                    <input type="text" placeholder="* School or Bootcamp " name="school" value={school} onChange={e => onChange(e)} required />
+                    <input type="text" placeholder="* School or Bootcamp " name="school" value={school} onChange={e => onChange(e)} />
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="* Degree or Certification" name="degree" value={degree} onChange={e => onChange(e)} required />
+                    <input type="text" placeholder="* Degree or Certification" name="degree" value={degree} onChange={e => onChange(e)} />
                 </div>
                 <div className="form-group">
                     <input type="text" placeholder="Field of Study" value={fieldofstudy} onChange={e => onChange(e)} name="fieldofstudy" />
@@ -70,7 +70,7 @@ const AddEducation = ({ addEducation, history }) => {
                     ></textarea>
                 </div>
                 <input type="submit" className="btn btn-primary my-1" />
-                <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
+                <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
             </form>
         </Fragment>
     )
