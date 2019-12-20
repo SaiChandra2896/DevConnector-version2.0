@@ -5,6 +5,7 @@ import Spinner from '../layout/Spinner';
 import { getProfilebyId } from '../../actions/profile';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
+import ProfileExperience from './ProfileExperience'
 import { Link } from 'react-router-dom';
 
 const Profile = ({ getProfilebyId, profile: { profile, loading }, auth, match }) => {
@@ -21,6 +22,14 @@ const Profile = ({ getProfilebyId, profile: { profile, loading }, auth, match })
                 <div class="profile-grid my-1">
                     <ProfileTop profile={profile} />
                     <ProfileAbout profile={profile} />
+                    <div className="profile-exp bg-white p-2">
+                        <h2 className="text-primary">Experience</h2>
+                        {profile.experience.length > 0 ? (<div>
+                            {profile.experience.map(exp => (
+                                <ProfileExperience key={exp._id} experience={exp} />
+                            ))}
+                        </div>) : (<h4>No experience updated..</h4>)}
+                    </div>
                 </div>
             </div>)}
         </Fragment>
