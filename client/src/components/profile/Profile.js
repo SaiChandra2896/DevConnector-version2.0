@@ -5,7 +5,8 @@ import Spinner from '../layout/Spinner';
 import { getProfilebyId } from '../../actions/profile';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
-import ProfileExperience from './ProfileExperience'
+import ProfileExperience from './ProfileExperience';
+import ProfileEducation from './ProfileEducation';
 import { Link } from 'react-router-dom';
 
 const Profile = ({ getProfilebyId, profile: { profile, loading }, auth, match }) => {
@@ -29,6 +30,15 @@ const Profile = ({ getProfilebyId, profile: { profile, loading }, auth, match })
                                 <ProfileExperience key={exp._id} experience={exp} />
                             ))}
                         </div>) : (<h4>No experience updated..</h4>)}
+                    </div>
+
+                    <div className="profile-edu bg-white p-2">
+                        <h2 className="text-primary">Education</h2>
+                        {profile.education.length > 0 ? (<div>
+                            {profile.education.map(edu => (
+                                <ProfileEducation key={edu._id} education={edu} />
+                            ))}
+                        </div>) : (<h4>No Education updated..</h4>)}
                     </div>
                 </div>
             </div>)}
