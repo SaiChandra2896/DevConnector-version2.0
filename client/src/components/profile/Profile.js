@@ -7,6 +7,7 @@ import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
+import ProfileGithub from './ProfileGithub';
 import { Link } from 'react-router-dom';
 
 const Profile = ({ getProfilebyId, profile: { profile, loading }, auth, match }) => {
@@ -40,6 +41,9 @@ const Profile = ({ getProfilebyId, profile: { profile, loading }, auth, match })
                             ))}
                         </div>) : (<h4>No Education updated..</h4>)}
                     </div>
+                    {profile.githubusername && (
+                        <ProfileGithub username={profile.githubusername} />
+                    )}
                 </div>
             </div>)}
         </Fragment>
